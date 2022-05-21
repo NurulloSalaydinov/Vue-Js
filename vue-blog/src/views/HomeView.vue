@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div id="app">
     <div id="codex-editor"></div>
   </div>
@@ -200,4 +200,4 @@ export default {
     })
   },
 }
-</script>
+</script> -->

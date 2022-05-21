@@ -4,11 +4,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from api.views import upload
+from api.views import home
 
 urlpatterns = [
     path('editorjs/', include('django_editorjs_fields.urls')),
-    path('upload/', upload, name='upload'),
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
 ]
 

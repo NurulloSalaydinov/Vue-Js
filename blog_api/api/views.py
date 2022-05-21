@@ -1,13 +1,28 @@
 from django.shortcuts import render
-from django.http import JsonResponse
 from .models import *
 
-def upload(request):
-    if request.method == 'POST':
-        print(request.POST)
-        print(request.FILES)
-    else:
-        print(request)
-    print(request.FILES)
+from django import forms
+from django_editorjs_fields import EditorJsWidget
 
-    return JsonResponse({'success': 200})
+
+class EditorForm(forms.ModelForm):
+    class Meta:
+        model = Editor
+        fields = '__all__'
+        widgets = {
+            'body_editorjs': EditorJsWidget(config={'minHeight': 100}),
+            'body_editorjs_text': EditorJsWidget(plugins=["@editorjs/image", "@editorjs/header"])
+        }
+
+
+def home(request):
+    if request.method == 'POST':
+        form = EditorForm(request.POST, request.FILES)
+    else:
+        form = EditorForm()
+    editor = Editor.objects.all()
+    context = {
+        'editors': editor,
+        'form': form,
+    }
+    return render(request, 'index.html', context)
